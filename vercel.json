@@ -4,6 +4,10 @@
     {
       "src": "backend/app.py",
       "use": "@vercel/python"
+    },
+    {
+      "src": "frontend/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -12,13 +16,20 @@
       "dest": "backend/app.py"
     },
     {
-      "src": "/(.*\\.(html|css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
+      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|json))",
       "dest": "/frontend/$1"
     },
     {
-      "src": "/(.*)",
+      "src": "/(index|admin|login|quote|quote-preview|reset-data)\\.html",
+      "dest": "/frontend/$0"
+    },
+    {
+      "src": "/(index|admin|login|quote|quote-preview|reset-data)",
       "dest": "/frontend/$1.html"
+    },
+    {
+      "src": "/",
+      "dest": "/frontend/index.html"
     }
-  ],
-  "outputDirectory": "frontend"
+  ]
 }
