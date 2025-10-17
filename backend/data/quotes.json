@@ -1,1 +1,68 @@
-[]
+[
+  {
+    "id": "QUOTE_20251017160657_1",
+    "quoteNumber": "Q20251017-408891",
+    "createTime": "2025-10-17T08:06:57.274Z",
+    "updateTime": "2025-10-17T16:06:57.594544",
+    "products": [
+      {
+        "id": "prod_002",
+        "sku": "BODY-COLOR-002",
+        "name": "金属蓝车身",
+        "category": "cat_001",
+        "price": 3200,
+        "description": "时尚金属蓝漆面，独特的金属质感，在阳光下呈现迷人的蓝色光泽。采用环保水性漆，安全无异味。",
+        "image": "../public/images/测试.jpg",
+        "type": "optional",
+        "stock": "in_stock"
+      },
+      {
+        "id": "prod_001",
+        "sku": "BODY-COLOR-001",
+        "name": "珍珠白车身",
+        "category": "cat_001",
+        "price": 2800,
+        "description": "高级珍珠白漆面，耐候性强，光泽度高，彰显高端品质。采用进口汽车漆，经过多道工序精心喷涂，持久如新。",
+        "image": "../public/images/测试.jpg",
+        "type": "optional",
+        "stock": "in_stock"
+      },
+      {
+        "id": "prod_003",
+        "sku": "ROOF-001",
+        "name": "透明顶棚",
+        "category": "cat_001",
+        "price": 1500,
+        "description": "高强度亚克力透明顶棚，采光效果好，视野开阔。具有防紫外线功能，有效阻挡98%的紫外线，保护驾乘人员。",
+        "image": "../public/images/测试.jpg",
+        "type": "optional",
+        "stock": "in_stock"
+      },
+      {
+        "id": "prod_006",
+        "sku": "BATTERY-001",
+        "name": "铅酸电池组-48V/150Ah",
+        "category": "cat_002",
+        "price": 4500,
+        "description": "经济实用的铅酸电池组，容量150Ah，续航里程约60公里。充电时间8-10小时，循环寿命约500次。",
+        "image": "../public/images/测试.jpg",
+        "type": "standard",
+        "stock": "in_stock"
+      }
+    ],
+    "productCount": 4,
+    "subtotal": 12000,
+    "discount": 0,
+    "tax": 1560,
+    "total": 13560,
+    "template": {
+      "companyName": "XX高尔夫球车有限公司",
+      "companyPhone": "400-888-8888",
+      "companyAddress": "xx省xx市XX区XX路XX号",
+      "validDays": 30
+    },
+    "status": "pending",
+    "customerInfo": "",
+    "remarks": ""
+  }
+]
