@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台管理系统 - 高尔夫球车选配</title>
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- 左侧菜单 -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>后台管理</h2>
+            </div>
+            <nav class="admin-nav">
+                <a href="#dashboard" class="nav-item active" data-page="dashboard">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">仪表盘</span>
+                </a>
+                <a href="#products" class="nav-item" data-page="products">
+                    <span class="nav-icon">🛠️</span>
+                    <span class="nav-text">配置项管理</span>
+                </a>
+                <a href="#images" class="nav-item" data-page="images">
+                    <span class="nav-icon">🖼️</span>
+                    <span class="nav-text">图片管理</span>
+                </a>
+                <a href="#prices" class="nav-item" data-page="prices">
+                    <span class="nav-icon">💰</span>
+                    <span class="nav-text">价格管理</span>
+                </a>
+                <a href="#templates" class="nav-item" data-page="templates">
+                    <span class="nav-icon">📄</span>
+                    <span class="nav-text">模板管理</span>
+                </a>
+                <a href="#orders" class="nav-item" data-page="orders">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-text">订单历史</span>
+                </a>
+                <a href="#quotes" class="nav-item" data-page="quotes">
+                    <span class="nav-icon">📄</span>
+                    <span class="nav-text">报价单管理</span>
+                </a>
+                <a href="index.html" class="nav-item">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">返回前台</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="admin-main">
+            <!-- 顶部栏 -->
+            <header class="admin-header">
+                <h1 id="pageTitle">仪表盘</h1>
+                <div class="admin-user">
+                    <span id="adminUsername">管理员</span>
+                    <button class="btn-logout" onclick="logout()">
+                        <span class="logout-icon">🚪</span>
+                        退出登录
+                    </button>
+                </div>
+            </header>
+
+            <!-- 仪表盘页面 -->
+            <div class="page-content" id="page-dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🛠️</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="statTotalProducts">0</div>
+                            <div class="stat-label">配置项总数</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="statStandardProducts">0</div>
+                            <div class="stat-label">标配项目</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="statOptionalProducts">0</div>
+                            <div class="stat-label">选配项目</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💵</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="statAvgPrice">¥0</div>
+                            <div class="stat-label">平均价格</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <div class="section-header-dash">
+                        <h3>📊 分类统计</h3>
+                        </div>
+                    <div class="category-stats-grid" id="categoryStats"></div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3>📈 数据概览</h3>
+                    <div class="data-overview">
+                        <div class="overview-item">
+                            <div class="overview-label">总价值</div>
+                            <div class="overview-value" id="totalValue">¥0</div>
+                        </div>
+                        <div class="overview-item">
+                            <div class="overview-label">最高价格</div>
+                            <div class="overview-value" id="maxPrice">¥0</div>
+                        </div>
+                        <div class="overview-item">
+                            <div class="overview-label">最低价格</div>
+                            <div class="overview-value" id="minPrice">¥0</div>
+                        </div>
+                        <div class="overview-item">
+                            <div class="overview-label">库存商品</div>
+                            <div class="overview-value" id="inStockCount">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 配置项管理页面 -->
+            <div class="page-content" id="page-products" style="display: none;">
+                <!-- 分类过滤提示和返回按钮 -->
+                <div class="category-filter-bar" id="categoryFilterBar" style="display: none;">
+                    <div class="filter-info">
+                        <span class="filter-icon">🔍</span>
+                        <span class="filter-text">正在查看：<strong id="currentFilterCategory"></strong></span>
+                    </div>
+                    <button class="btn-back" onclick="clearCategoryFilter()">
+                        ← 返回所有商品
+                    </button>
+                </div>
+
+                <div class="page-actions">
+                    <button class="btn-primary" onclick="showProductModal()">
+                        ➕ 新增配置项
+                    </button>
+                    <div class="search-box">
+                        <input type="text" id="adminSearchInput" placeholder="搜索配置项...">
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>缩略图</th>
+                                <th>名称</th>
+                                <th>SKU</th>
+                                <th>分类</th>
+                                <th>价格</th>
+                                <th>类型</th>
+                                <th>库存</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <!-- 动态加载 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 图片管理页面 -->
+            <div class="page-content" id="page-images" style="display: none;">
+                <div class="upload-section">
+                    <h3>上传图片</h3>
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📤</div>
+                        <p>拖拽图片到此处或点击上传</p>
+                        <p class="upload-hint">支持 JPG、PNG、WEBP 格式，单个文件不超过 5MB</p>
+                        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" multiple style="display: none;">
+                        <button class="btn-primary" onclick="document.getElementById('fileInput').click()">
+                            选择图片
+                        </button>
+                    </div>
+
+                    <!-- 上传预览区 -->
+                    <div class="upload-preview" id="uploadPreview" style="display: none;">
+                        <h4>待上传图片</h4>
+                        <div class="preview-grid" id="previewGrid"></div>
+                        <div class="preview-actions">
+                            <button class="btn-secondary" onclick="clearUploadPreview()">清空</button>
+                            <button class="btn-primary" onclick="confirmUpload()">确认上传</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="images-section">
+                    <div class="section-header">
+                        <h3>图片库</h3>
+                        <div class="image-stats">
+                            <span>已上传: <strong id="uploadedCount">0</strong> 张</span>
+                            <span>总容量: <strong id="totalSize">0 KB</strong></span>
+                        </div>
+                    </div>
+
+
+                    <!-- 图片网格 -->
+                    <div class="images-grid" id="imagesGrid">
+                        <!-- 动态加载已上传的图片 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 价格管理页面 -->
+            <div class="page-content" id="page-prices" style="display: none;">
+                <div class="page-actions">
+                    <button class="btn-primary" onclick="batchUpdatePrices()">
+                        批量调整价格
+                    </button>
+                    <button class="btn-secondary" onclick="exportPrices()">
+                        导出价格表
+                    </button>
+                </div>
+
+                <div class="price-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>配置名称</th>
+                                <th>SKU</th>
+                                <th>当前价格</th>
+                                <th>调整价格</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pricesTableBody">
+                            <!-- 动态加载 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 模板管理页面 -->
+            <div class="page-content" id="page-templates" style="display: none;">
+                <div class="template-section">
+                    <h3>报价单模板设置</h3>
+                    <form class="template-form">
+                        <div class="form-group">
+                            <label>公司名称</label>
+                            <input type="text" id="companyName" value="XX高尔夫球车有限公司" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>联系电话</label>
+                            <input type="text" id="companyPhone" value="400-888-8888" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>公司地址</label>
+                            <input type="text" id="companyAddress" value="广东省深圳市XX区XX路XX号" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>报价单有效期（天）</label>
+                            <input type="number" id="validDays" value="30" class="form-control">
+                        </div>
+                        <button type="button" class="btn-primary" onclick="saveTemplate()">保存设置</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 报价单管理页面 -->
+            <div class="page-content" id="page-quotes" style="display: none;">
+                <!-- 顶部操作栏 -->
+                <div class="quotes-header">
+                    <div class="quotes-title-section">
+                        <h2>📄 报价单管理</h2>
+                        <p class="quotes-subtitle">管理和审核客户提交的报价单</p>
+                    </div>
+                    <div class="quotes-actions">
+                        <div class="quote-filter-group">
+                            <label>筛选状态：</label>
+                            <select id="quoteStatusFilter" class="form-control filter-select" onchange="filterQuotesByStatus()">
+                                <option value="all">全部状态</option>
+                                <option value="pending">⏳ 待审核</option>
+                                <option value="approved">✅ 已审核</option>
+                                <option value="rejected">❌ 已拒绝</option>
+                                <option value="completed">✔️ 已完成</option>
+                            </select>
+                        </div>
+                        <button class="btn-primary btn-refresh" onclick="refreshQuotes()">
+                            <span class="btn-icon">🔄</span>
+                            刷新列表
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 统计卡片 -->
+                <div class="quotes-stats-grid">
+                    <div class="stat-card-modern">
+                        <div class="stat-card-header">
+                            <div class="stat-icon-circle blue">📋</div>
+                            <div class="stat-trend">
+                                <span class="trend-text">总计</span>
+                            </div>
+                        </div>
+                        <div class="stat-card-body">
+                            <div class="stat-value" id="statTotalQuotes">0</div>
+                            <div class="stat-label">报价单总数</div>
+                        </div>
+                    </div>
+                    <div class="stat-card-modern">
+                        <div class="stat-card-header">
+                            <div class="stat-icon-circle orange">⏳</div>
+                            <div class="stat-trend">
+                                <span class="trend-text">待处理</span>
+                            </div>
+                        </div>
+                        <div class="stat-card-body">
+                            <div class="stat-value" id="statPendingQuotes">0</div>
+                            <div class="stat-label">待审核</div>
+                        </div>
+                    </div>
+                    <div class="stat-card-modern">
+                        <div class="stat-card-header">
+                            <div class="stat-icon-circle green">✅</div>
+                            <div class="stat-trend">
+                                <span class="trend-text">已完成</span>
+                            </div>
+                        </div>
+                        <div class="stat-card-body">
+                            <div class="stat-value" id="statApprovedQuotes">0</div>
+                            <div class="stat-label">已审核</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 报价单表格 -->
+                <div class="table-container-modern">
+                    <table class="admin-table quotes-table">
+                        <thead>
+                            <tr>
+                                <th width="180">报价单号</th>
+                                <th width="160">创建时间</th>
+                                <th width="100" style="text-align: center;">配置数量</th>
+                                <th width="120" style="text-align: right;">报价总额</th>
+                                <th width="100" style="text-align: center;">状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quotesTableBody">
+                            <!-- 动态加载 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 订单历史页面 -->
+            <div class="page-content" id="page-orders" style="display: none;">
+                <div class="page-actions">
+                    <div class="order-filter">
+                        <input type="text" id="orderSearchInput" placeholder="搜索订单编号或客户信息..." class="form-control">
+                        <select id="orderDateFilter" class="form-control">
+                            <option value="all">全部时间</option>
+                            <option value="today">今天</option>
+                            <option value="week">本周</option>
+                            <option value="month">本月</option>
+                        </select>
+                    </div>
+                    <div class="order-actions-group">
+                        <button class="btn-secondary" onclick="exportOrdersHistory()">
+                            📊 导出订单记录
+                        </button>
+                        <button class="btn-danger" id="batchDeleteBtn" onclick="batchDeleteOrders()" style="display: none;">
+                            🗑️ 删除选中 (<span id="selectedCount">0</span>)
+                        </button>
+                        <button class="btn-danger" onclick="clearAllOrders()">
+                            🧹 一键清空
+                        </button>
+                    </div>
+                </div>
+
+                <div class="orders-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="statTotalOrders">0</div>
+                            <div class="stat-label">订单总数</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="statTotalAmount">¥0</div>
+                            <div class="stat-label">订单总额</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="statTodayOrders">0</div>
+                            <div class="stat-label">今日订单</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th width="50" style="text-align: center;">
+                                    <input type="checkbox" id="selectAllOrders" onchange="toggleSelectAll()" class="order-checkbox">
+                                </th>
+                                <th>订单编号</th>
+                                <th>生成时间</th>
+                                <th>配置数量</th>
+                                <th>订单总额</th>
+                                <th>客户信息</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- 动态加载 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 配置项编辑弹窗 -->
+    <div class="modal" id="productModal">
+        <div class="modal-content modal-large">
+            <span class="modal-close" onclick="closeProductModal()">&times;</span>
+            <h2 id="modalTitle">新增配置项</h2>
+            <form class="product-form" id="productForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>配置名称 *</label>
+                        <input type="text" id="productName" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>SKU编号 *</label>
+                        <input type="text" id="productSku" required class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>分类 *</label>
+                        <select id="productCategory" required class="form-control">
+                            <!-- 动态加载 -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>价格 *</label>
+                        <input type="number" id="productPrice" required class="form-control" min="0" step="0.01">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>类型 *</label>
+                        <select id="productType" required class="form-control">
+                            <option value="standard">标配</option>
+                            <option value="optional">选配</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>库存状态 *</label>
+                        <select id="productStock" required class="form-control">
+                            <option value="in_stock">有货</option>
+                            <option value="out_of_stock">缺货</option>
+                            <option value="pre_order">预订</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>配置描述 *</label>
+                    <textarea id="productDescription" required class="form-control" rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>产品图片</label>
+                    <div class="image-preview" id="imagePreview">
+                        <img src="../public/images/测试.jpg" alt="预览">
+                    </div>
+                    <div class="image-actions">
+                        <button type="button" class="btn-secondary btn-small" onclick="selectFromGallery()">从图片库选择</button>
+                        <button type="button" class="btn-secondary btn-small" onclick="document.getElementById('productImage').click()">上传新图片</button>
+                        <button type="button" class="btn-secondary btn-small" onclick="useTestImage()">使用测试图片</button>
+                    </div>
+                    <input type="file" id="productImage" accept="image/*" style="display: none;">
+                    <input type="hidden" id="selectedImagePath" value="../public/images/测试.jpg">
+                    <small>💡 可以从图片库选择、上传新图片或使用测试图片</small>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeProductModal()">取消</button>
+                    <button type="submit" class="btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 图片库选择弹窗 -->
+    <div class="modal" id="galleryModal">
+        <div class="modal-content modal-large">
+            <span class="modal-close" onclick="closeGalleryModal()">&times;</span>
+            <h2>从图片库选择</h2>
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- 动态加载图片库 -->
+            </div>
+            <div class="form-actions">
+                <button class="btn-secondary" onclick="closeGalleryModal()">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片编辑弹窗 -->
+    <div class="modal" id="imageEditModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeImageEditModal()">&times;</span>
+            <h2>编辑图片信息</h2>
+            <form id="imageEditForm">
+                <div class="image-edit-preview">
+                    <img id="editImagePreview" src="" alt="预览">
+                </div>
+                <div class="form-group">
+                    <label>图片名称</label>
+                    <input type="text" id="editImageName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>图片描述</label>
+                    <textarea id="editImageDescription" class="form-control" rows="3" placeholder="为图片添加描述信息（选填）"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>标签</label>
+                    <input type="text" id="editImageTags" class="form-control" placeholder="输入标签，用逗号分隔（选填）">
+                    <small>例如：车身,外观,红色</small>
+                </div>
+                <div class="image-info-display">
+                    <p><strong>文件大小：</strong><span id="editImageSize"></span></p>
+                    <p><strong>上传时间：</strong><span id="editImageDate"></span></p>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeImageEditModal()">取消</button>
+                    <button type="submit" class="btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 订单详情弹窗 -->
+    <div class="modal" id="orderDetailModal">
+        <div class="modal-content modal-large">
+            <span class="modal-close" onclick="closeOrderDetailModal()">&times;</span>
+            <h2>订单详情</h2>
+            <div id="orderDetailContent">
+                <!-- 动态加载订单详情 -->
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" onclick="closeOrderDetailModal()">关闭</button>
+                <button type="button" class="btn-primary" onclick="viewOrderQuote()">查看完整报价单</button>
+                <button type="button" class="btn-primary" onclick="reExportOrder()">重新导出</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 报价单编辑弹窗 -->
+    <div class="modal" id="quoteEditModal">
+        <div class="modal-content modal-extra-large">
+            <div class="modal-header-modern">
+                <div class="modal-title-section">
+                    <h2>✏️ 编辑报价单</h2>
+                    <p class="modal-subtitle">调整产品价格和优惠信息</p>
+                </div>
+                <button class="modal-close-modern" onclick="closeQuoteEditModal()">
+                    <span>✕</span>
+                </button>
+            </div>
+
+            <div class="modal-body-modern" id="quoteEditContent">
+                <!-- 动态加载 -->
+            </div>
+
+            <div class="modal-footer-modern">
+                <button type="button" class="btn-secondary-modern" onclick="closeQuoteEditModal()">
+                    <span class="btn-icon">✕</span>
+                    取消
+                </button>
+                <button type="button" class="btn-primary-modern" onclick="saveQuoteChanges()">
+                    <span class="btn-icon">💾</span>
+                    保存修改
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast通知容器 -->
+    <div id="toastContainer"></div>
+
+    <!-- 确认弹窗 -->
+    <div class="confirm-modal" id="confirmModal">
+        <div class="confirm-modal-content">
+            <div class="confirm-icon" id="confirmIcon">❓</div>
+            <h3 class="confirm-title" id="confirmTitle">确认操作</h3>
+            <p class="confirm-message" id="confirmMessage">您确定要执行此操作吗？</p>
+            <div class="confirm-buttons">
+                <button class="confirm-btn confirm-btn-cancel" id="confirmCancel">取消</button>
+                <button class="confirm-btn confirm-btn-confirm" id="confirmOk">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 导出报价单弹窗 -->
+    <div class="modal" id="exportQuoteModal" style="z-index: 10000;">
+        <div class="modal-content modal-small">
+            <span class="modal-close" onclick="closeExportQuoteModal()">&times;</span>
+            <h2>📤 导出报价单</h2>
+            <p class="export-modal-desc">请选择导出格式：</p>
+            <div class="export-options">
+                <button class="export-option-btn" onclick="exportQuoteAsImage()">
+                    <div class="export-icon">🖼️</div>
+                    <div class="export-info">
+                        <div class="export-title">导出为图片</div>
+                        <div class="export-desc">PNG格式，高清图片</div>
+                    </div>
+                </button>
+                <button class="export-option-btn" onclick="exportQuoteAsPDF()">
+                    <div class="export-icon">📄</div>
+                    <div class="export-info">
+                        <div class="export-title">导出为PDF</div>
+                        <div class="export-desc">PDF格式，专业文档</div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 报价单预览隐藏容器 -->
+    <div id="quotePreviewContainer" style="position: fixed; left: -9999px; top: 0; width: 1200px;"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重置数据</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 500px;
+            width: 90%;
+        }
+        h1 {
+            margin: 0 0 20px 0;
+            color: #2c3e50;
+            text-align: center;
+        }
+        .info {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196F3;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+        .status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 数据重置工具</h1>
+
+        <div class="info">
+            <p><strong>说明：</strong></p>
+            <p>点击下面的按钮将清空浏览器localStorage中的旧数据，并从products.json文件重新加载所有配置项。</p>
+        </div>
+
+        <button class="btn btn-primary" onclick="resetData()">
+            重置并加载数据
+        </button>
+
+        <button class="btn btn-secondary" onclick="goToAdmin()">
+            返回后台管理
+        </button>
+
+        <div class="status" id="status"></div>
+    </div>
+
+    <script>
+        async function resetData() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'status';
+            statusDiv.textContent = '正在重置数据...';
+
+            try {
+                // 清空localStorage
+                localStorage.removeItem('productsData');
+                console.log('已清空旧数据');
+
+                // 从JSON文件加载数据
+                const response = await fetch('../backend/data/products.json');
+                if (!response.ok) {
+                    throw new Error('无法加载数据文件');
+                }
+
+                const data = await response.json();
+                console.log('从JSON文件加载数据:', data);
+
+                // 保存到localStorage
+                localStorage.setItem('productsData', JSON.stringify(data));
+                console.log('数据已保存到localStorage');
+
+                // 显示成功消息
+                statusDiv.className = 'status success';
+                statusDiv.innerHTML = `
+                    <strong>✅ 重置成功！</strong><br>
+                    已加载 ${data.categories.length} 个分类和 ${data.products.length} 个配置项<br>
+                    <br>
+                    <button class="btn btn-primary" onclick="goToAdmin()" style="margin-top: 10px;">
+                        进入后台管理
+                    </button>
+                `;
+
+            } catch (error) {
+                console.error('重置失败:', error);
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = `
+                    <strong>❌ 重置失败</strong><br>
+                    错误信息: ${error.message}<br>
+                    <br>
+                    <small>请确保products.json文件存在且格式正确</small>
+                `;
+            }
+        }
+
+        function goToAdmin() {
+            window.location.href = 'admin.html';
+        }
+
+        // 显示当前数据状态
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedData = localStorage.getItem('productsData');
+            if (savedData) {
+                try {
+                    const data = JSON.parse(savedData);
+                    console.log('当前localStorage中有数据:', data.products.length, '个配置项');
+                } catch (e) {
+                    console.log('localStorage数据格式错误');
+                }
+            } else {
+                console.log('localStorage中没有数据');
+            }
+        });
+    </script>
+</body>
+</html>

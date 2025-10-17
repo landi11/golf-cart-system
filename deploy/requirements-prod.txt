@@ -1,0 +1,5 @@
+# 生产环境 Python 依赖
+Flask==2.3.2
+Flask-CORS==4.0.0
+gunicorn==21.2.0
+python-dotenv==1.0.0

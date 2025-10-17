@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高尔夫球车选配系统</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">高尔夫球车选配系统</div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link active">配件中心</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- 左侧分类菜单 -->
+        <aside class="sidebar">
+            <h3>配置分类</h3>
+            <ul class="category-list" id="categoryList">
+                <!-- 动态加载分类 -->
+            </ul>
+        </aside>
+
+        <!-- 中间配置展示区 -->
+        <main class="content">
+            <div class="content-header">
+                <h2 id="currentCategory">全部配置</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="搜索配置项...">
+                </div>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- 动态加载配置项 -->
+            </div>
+        </main>
+
+        <!-- 右侧已选配置 -->
+        <aside class="cart">
+            <h3>已选配置</h3>
+            <div class="cart-items" id="cartItems">
+                <p class="empty-cart">暂无选择</p>
+            </div>
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>配置总价：</span>
+                    <span class="price" id="totalPrice">¥0</span>
+                </div>
+                <div class="summary-row">
+                    <span>优惠金额：</span>
+                    <span class="price discount">-¥0</span>
+                </div>
+                <div class="summary-row total">
+                    <span>最终价格：</span>
+                    <span class="price" id="finalPrice">¥0</span>
+                </div>
+                <button class="btn-primary btn-generate" id="btnGenerate">生成报价单</button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 配置详情弹窗 -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalImage" src="" alt="">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalName"></h2>
+                    <p class="modal-sku">编号：<span id="modalSku"></span></p>
+                    <p class="modal-category">分类：<span id="modalCategory"></span></p>
+                    <p class="modal-price">价格：<span id="modalPrice"></span></p>
+                    <p class="modal-type">类型：<span id="modalType"></span></p>
+                    <div class="modal-description">
+                        <h4>配置说明</h4>
+                        <p id="modalDescription"></p>
+                    </div>
+                    <button class="btn-primary btn-add-to-cart" id="btnAddToCart">添加到选配</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

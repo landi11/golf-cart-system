@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>报价单预览 - 高尔夫球车选配系统</title>
+    <link rel="stylesheet" href="quote-style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="quote-container">
+        <!-- 操作按钮区 -->
+        <div class="quote-actions">
+            <button class="btn-back" onclick="goBack()">
+                <span class="btn-icon">←</span>
+                返回选配
+            </button>
+            <div class="export-buttons">
+                <button class="btn-submit-modern" onclick="submitQuoteToBackend()">
+                    <span class="btn-icon">📤</span>
+                    提交报价单
+                </button>
+            </div>
+        </div>
+
+        <!-- 报价单内容 -->
+        <div class="quote-paper" id="quotePaper">
+            <!-- 报价单头部 -->
+            <div class="quote-header">
+                <div class="company-info">
+                    <h1 class="company-name" id="companyName">XX高尔夫球车有限公司</h1>
+                    <p class="company-contact">
+                        <span>电话：<span id="companyPhone">400-888-8888</span></span>
+                        <span>地址：<span id="companyAddress">广东省深圳市XX区XX路XX号</span></span>
+                    </p>
+                </div>
+                <div class="quote-title">
+                    <h2>产品报价单（初始版）</h2>
+                    <p class="quote-number">报价单号：<span id="quoteNumber"></span></p>
+                    <p class="quote-status">状态：<span class="status-badge" id="quoteStatus">待提交</span></p>
+                </div>
+            </div>
+
+            <!-- 报价单信息 -->
+            <div class="quote-info">
+                <div class="info-row">
+                    <span>报价日期：<strong id="quoteDate"></strong></span>
+                    <span>有效期至：<strong id="validUntil"></strong></span>
+                </div>
+            </div>
+
+            <!-- 配置明细表 -->
+            <div class="quote-table-wrapper">
+                <h3 class="section-title">配置明细</h3>
+                <table class="quote-table">
+                    <thead>
+                        <tr>
+                            <th width="60">序号</th>
+                            <th width="120">产品图片</th>
+                            <th width="150">配置名称</th>
+                            <th>配置描述</th>
+                            <th width="120">SKU</th>
+                            <th width="100">单价</th>
+                            <th width="60">数量</th>
+                            <th width="100">小计</th>
+                        </tr>
+                    </thead>
+                    <tbody id="quoteTableBody">
+                        <!-- 动态生成 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 价格汇总 -->
+            <div class="quote-summary">
+                <div class="summary-row">
+                    <span>配置总价：</span>
+                    <span class="amount" id="subtotal">¥0</span>
+                </div>
+                <div class="summary-row">
+                    <span>优惠金额：</span>
+                    <span class="amount discount" id="discount">-¥0</span>
+                </div>
+                <div class="summary-row">
+                    <span>税费（增值税13%）：</span>
+                    <span class="amount" id="tax">¥0</span>
+                </div>
+                <div class="summary-row total">
+                    <span>最终总价：</span>
+                    <span class="amount final" id="totalPrice">¥0</span>
+                </div>
+            </div>
+
+            <!-- 备注说明 -->
+            <div class="quote-notes">
+                <h4>备注说明</h4>
+                <ul>
+                    <li>本报价单仅供参考，最终价格以实际成交为准</li>
+                    <li>产品图片仅供参考，实物以实际交付为准</li>
+                    <li>配置项可能因库存情况有所调整，请以实际为准</li>
+                    <li>本报价单在有效期内有效，过期需重新报价</li>
+                    <li>如有任何疑问，请联系我们的销售人员</li>
+                </ul>
+            </div>
+
+            <!-- 报价单底部 -->
+            <div class="quote-footer">
+                <p>感谢您的信任与支持！</p>
+                <p class="footer-contact">
+                    联系电话：<span id="footerPhone">400-888-8888</span> |
+                    网址：www.golfcart.com
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast通知容器 -->
+    <div id="toastContainer"></div>
+
+    <script src="quote.js"></script>
+</body>
+</html>

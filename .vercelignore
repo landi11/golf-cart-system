@@ -1,0 +1,16 @@
+# Vercel 忽略文件
+backend/logs/
+backend/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+ENV/
+node_modules/
+.git/
+.vscode/
+deploy/
+部署说明.txt
+DEPLOY.md

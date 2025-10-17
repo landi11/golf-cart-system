@@ -1,0 +1,24 @@
+[Unit]
+Description=Golf Cart Configuration System
+After=network.target
+
+[Service]
+Type=notify
+# 替换为你的项目路径
+WorkingDirectory=/var/www/golf-cart/backend
+# 替换为你的 Python 虚拟环境路径
+Environment="PATH=/var/www/golf-cart/venv/bin"
+ExecStart=/var/www/golf-cart/venv/bin/gunicorn -c ../deploy/gunicorn_config.py app:app
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+Restart=always
+RestartSec=10
+
+# 替换为你的用户名
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy=multi-user.target

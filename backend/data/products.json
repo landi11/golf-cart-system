@@ -1,0 +1,266 @@
+{
+  "categories": [
+    {
+      "id": "cat_001",
+      "name": "外观配置",
+      "description": "车身外观相关配置"
+    },
+    {
+      "id": "cat_002",
+      "name": "动力系统",
+      "description": "动力和电池相关配置"
+    },
+    {
+      "id": "cat_003",
+      "name": "底盘系统",
+      "description": "底盘和悬挂相关配置"
+    },
+    {
+      "id": "cat_004",
+      "name": "操控配置",
+      "description": "操控和仪表相关配置"
+    },
+    {
+      "id": "cat_005",
+      "name": "座椅配置",
+      "description": "座椅和靠背相关配置"
+    },
+    {
+      "id": "cat_006",
+      "name": "舒适性配置",
+      "description": "舒适性和娱乐相关配置"
+    },
+    {
+      "id": "cat_007",
+      "name": "安全配置",
+      "description": "安全系统相关配置"
+    },
+    {
+      "id": "cat_008",
+      "name": "其他配件",
+      "description": "其他附加配件"
+    }
+  ],
+  "products": [
+    {
+      "id": "prod_001",
+      "sku": "BODY-COLOR-001",
+      "name": "珍珠白车身",
+      "category": "cat_001",
+      "price": 2800,
+      "description": "高级珍珠白漆面，耐候性强，光泽度高，彰显高端品质。采用进口汽车漆，经过多道工序精心喷涂，持久如新。",
+      "image": "../public/images/测试.jpg",
+      "type": "optional",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_002",
+      "sku": "BODY-COLOR-002",
+      "name": "金属蓝车身",
+      "category": "cat_001",
+      "price": 3200,
+      "description": "时尚金属蓝漆面，独特的金属质感，在阳光下呈现迷人的蓝色光泽。采用环保水性漆，安全无异味。",
+      "image": "../public/images/测试.jpg",
+      "type": "optional",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_003",
+      "sku": "ROOF-001",
+      "name": "透明顶棚",
+      "category": "cat_001",
+      "price": 1500,
+      "description": "高强度亚克力透明顶棚，采光效果好，视野开阔。具有防紫外线功能，有效阻挡98%的紫外线，保护驾乘人员。",
+      "image": "../public/images/测试.jpg",
+      "type": "optional",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_004",
+      "sku": "MOTOR-001",
+      "name": "5KW交流电机",
+      "category": "cat_002",
+      "price": 8500,
+      "description": "高性能交流电机，额定功率5KW，动力强劲，爬坡能力优秀。采用全铜线圈，散热效果好，使用寿命长达10年以上。",
+      "image": "../public/images/测试.jpg",
+      "type": "standard",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_005",
+      "sku": "MOTOR-002",
+      "name": "7KW交流电机",
+      "category": "cat_002",
+      "price": 12000,
+      "description": "大功率交流电机，额定功率7KW，提供更强劲的动力输出。适合需要高性能的用户，最大爬坡角度可达25度。",
+      "image": "../public/images/测试.jpg",
+      "type": "optional",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_006",
+      "sku": "BATTERY-001",
+      "name": "铅酸电池组-48V/150Ah",
+      "category": "cat_002",
+      "price": 4500,
+      "description": "经济实用的铅酸电池组，容量150Ah，续航里程约60公里。充电时间8-10小时，循环寿命约500次。",
+      "image": "../public/images/测试.jpg",
+      "type": "standard",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_007",
+      "sku": "BATTERY-002",
+      "name": "锂电池组-48V/200Ah",
+      "category": "cat_002",
+      "price": 18000,
+      "description": "高端锂电池组，重量轻，容量大，续航里程可达120公里。充电时间4-6小时，循环寿命超过2000次，性价比高。",
+      "image": "../public/images/测试.jpg",
+      "type": "optional",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_008",
+      "sku": "TIRE-001",
+      "name": "越野轮胎-18寸",
+      "category": "cat_003",
+      "price": 2400,
+      "description": "加厚越野轮胎，胎纹深，抓地力强，适合各种路况。采用耐磨橡胶材质，使用寿命长，提供更好的驾驶体验。",
+      "image": "../public/images/测试.jpg",
+      "type": "optional",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_009",
+      "sku": "SUSPENSION-001",
+      "name": "独立悬挂系统",
+      "category": "cat_003",
+      "price": 6800,
+      "description": "高级独立悬挂系统，每个车轮独立运作，提供更好的舒适性和操控性。有效过滤路面颠簸，驾乘更平稳。",
+      "image": "../public/images/测试.jpg",
+      "type": "optional",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_010",
+      "sku": "PEDAL-001",
+      "name": "铝合金油门踏板",
+      "category": "cat_004",
+      "price": 380,
+      "description": "精致的铝合金油门踏板，表面经过阳极氧化处理，防滑性能好。人体工学设计，踩踏舒适，提升驾驶体验。",
+      "image": "../public/images/测试.jpg",
+      "type": "optional",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_011",
+      "sku": "PEDAL-002",
+      "name": "铝合金刹车踏板",
+      "category": "cat_004",
+      "price": 380,
+      "description": "匹配的铝合金刹车踏板，防滑纹路设计，制动反应灵敏。与油门踏板搭配使用，整体协调美观。",
+      "image": "../public/images/测试.jpg",
+      "type": "optional",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_012",
+      "sku": "STEERING-001",
+      "name": "真皮方向盘",
+      "category": "cat_004",
+      "price": 1200,
+      "description": "高档真皮包裹方向盘，手感细腻，握感舒适。采用透气打孔设计，夏天不闷热，冬天不冰凉。",
+      "image": "../public/images/测试.jpg",
+      "type": "optional",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_013",
+      "sku": "SEAT-001",
+      "name": "标准织物座椅",
+      "category": "cat_005",
+      "price": 1800,
+      "description": "耐用的织物座椅，透气性好，易于清洁。人体工学设计，提供良好的支撑性，长时间乘坐不疲劳。",
+      "image": "../public/images/测试.jpg",
+      "type": "standard",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_014",
+      "sku": "SEAT-002",
+      "name": "真皮座椅",
+      "category": "cat_005",
+      "price": 4500,
+      "description": "豪华真皮座椅，采用进口头层牛皮，柔软舒适。座椅填充高密度海绵，弹性好不易变形，彰显尊贵品质。",
+      "image": "../public/images/测试.jpg",
+      "type": "optional",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_015",
+      "sku": "BACKREST-001",
+      "name": "可调节靠背",
+      "category": "cat_005",
+      "price": 680,
+      "description": "多档位可调节靠背，可根据个人习惯调节角度，提供更舒适的驾乘体验。调节机构稳固耐用，不易松动。",
+      "image": "../public/images/测试.jpg",
+      "type": "optional",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_016",
+      "sku": "AC-001",
+      "name": "冷暖空调系统",
+      "category": "cat_006",
+      "price": 5800,
+      "description": "一体式冷暖空调，制冷制热效果好。采用环保冷媒，节能省电。配备空气过滤系统，改善车内空气质量。",
+      "image": "../public/images/测试.jpg",
+      "type": "optional",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_017",
+      "sku": "AUDIO-001",
+      "name": "蓝牙音响系统",
+      "category": "cat_006",
+      "price": 1800,
+      "description": "高保真蓝牙音响，支持手机无线连接。4个扬声器环绕立体声，音质清晰饱满，让您的旅程更加愉悦。",
+      "image": "../public/images/测试.jpg",
+      "type": "optional",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_018",
+      "sku": "SAFETY-001",
+      "name": "三点式安全带",
+      "category": "cat_007",
+      "price": 320,
+      "description": "符合国家安全标准的三点式安全带，采用高强度织带，拉力强度高。配备自动回收装置，使用方便。",
+      "image": "../public/images/测试.jpg",
+      "type": "standard",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_019",
+      "sku": "SAFETY-002",
+      "name": "倒车影像系统",
+      "category": "cat_007",
+      "price": 1200,
+      "description": "高清倒车摄像头配7寸显示屏，170度广角镜头，盲区更小。夜视功能清晰，倒车更安全更放心。",
+      "image": "../public/images/测试.jpg",
+      "type": "optional",
+      "stock": "in_stock"
+    },
+    {
+      "id": "prod_020",
+      "sku": "OTHER-001",
+      "name": "电动遮阳篷",
+      "category": "cat_008",
+      "price": 2800,
+      "description": "电动控制遮阳篷，一键开合，方便快捷。采用防水防晒面料，有效阻挡紫外线和雨水，延长车辆使用寿命。",
+      "image": "../public/images/测试.jpg",
+      "type": "optional",
+      "stock": "in_stock"
+    }
+  ]
+}
