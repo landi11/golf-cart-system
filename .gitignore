@@ -45,6 +45,7 @@ node_modules/
 *.tmp
 *.temp
 *.bak
+*.old
 
 # Data files (optional - 如果不想上传数据)
 # backend/data/quotes.json
