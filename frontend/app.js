@@ -24,7 +24,13 @@ async function loadData() {
             products = data.products;
         } else {
             // 否则从 JSON 文件加载
-            const response = await fetch('/data/products.json');
+            // 尝试多个路径，兼容本地和 Vercel
+            let response;
+            try {
+                response = await fetch('/data/products.json');
+            } catch {
+                response = await fetch('../backend/data/products.json');
+            }
             const data = await response.json();
             categories = data.categories;
             products = data.products;
