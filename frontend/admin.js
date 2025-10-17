@@ -162,7 +162,7 @@ async function loadData() {
             products = data.products;
         } else {
             // 从 JSON 文件加载初始数据
-            const response = await fetch('../backend/data/products.json');
+            const response = await fetch('/data/products.json');
             const data = await response.json();
             categories = data.categories;
             products = data.products;
