@@ -463,6 +463,11 @@ function showPage(page) {
     if (page === 'quotes') {
         loadQuotesData();
     }
+
+    // 如果切换到模板管理页面，加载模板设置
+    if (page === 'templates') {
+        loadTemplate();
+    }
 }
 
 // 初始化事件监听
@@ -680,6 +685,24 @@ function exportPrices() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+}
+
+// 加载模板设置
+function loadTemplate() {
+    const template = JSON.parse(localStorage.getItem('quoteTemplate') || '{}');
+
+    if (template.companyName) {
+        document.getElementById('companyName').value = template.companyName;
+    }
+    if (template.companyPhone) {
+        document.getElementById('companyPhone').value = template.companyPhone;
+    }
+    if (template.companyAddress) {
+        document.getElementById('companyAddress').value = template.companyAddress;
+    }
+    if (template.validDays) {
+        document.getElementById('validDays').value = template.validDays;
+    }
 }
 
 // 保存模板设置
